@@ -72,6 +72,15 @@ class LinkedList:
             position += 1
         return i  # found and return the element
 
+    # add functionality of iterables to iterate through the list
+    # the iterator includes next(), previous(), hasNext(), and the most important - Remove()
+    # Include a midCount/check the book/ to indicate new modifications after an iterator is created. page 76 of the book
+    # keep truck of size value to operate in constant time ie replace the size function
+    # here is a resource https://www.youtube.com/watch?v=jTYiNjvnHZY
+    # Add clear method for node to clear its contents
+    # check the iterator from the book. Helpful
+    # The remove operation is nasty - changing mid-count
+
     def remove(self, node_index):
         """Remove node from LinkedList using index"""
         if node_index == 0:  # if index 0 return first element
@@ -102,6 +111,8 @@ l.add('Edward', 'Spain')
 print('The size is: %s' % l.size())
 print(l.get(3))
 print(l)
-print(l.remove(3))
+print(l.remove(4))
 print(l)
 print('The size is: %s' % l.size())
+print('---------------')
+print(format(l))
