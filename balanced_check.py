@@ -24,8 +24,7 @@ Examples:
 ()} is not balanced.
 ({} is not balanced.
 """
-# Python3 code to Check for
-# balanced parentheses in an expression
+
 open_list = ["[", "{", "("]
 close_list = ["]", "}", ")"]
 comment = ["/", "*"]
@@ -33,53 +32,76 @@ lineNumber = 0
 
 
 # Function to check parentheses
-def check_c(myStr):
+def check_line(myStr):
+    currentIndex = 0
     stack = []
     openedDocString = False
+    skipNext = False
     for i in myStr:
-
         if not openedDocString:
             # if it is an opening just append it
             if i in open_list:
                 stack.append(i)
             elif i in close_list:
-                pos = close_list.index(i)  # get index of the closing inorder to get the index of corresponding opening
-                stackTop = stack[len(stack) - 1]  # top of the stack OPENING symbol
+                position = close_list.index(
+                    i)  # get index of the closing in order to get the index of corresponding opening
                 # if stack not empty ( previously opened) and a closing has to match with stack top
-                if (len(stack) > 0) and (open_list[pos] == stackTop):
+                if (len(stack) > 0) and (open_list[position] == stack[len(stack) - 1]):
                     stack.pop()  # then it is balanced
                 else:
-                    return " Not - balanced "
+                    return "unBalanced"
             elif i == comment[0]:
-                pos = myStr.index(i)  # get the current index to check the next /
-                next_symbol = myStr[pos + 1]
+                # get the current index to check the next /
+                next_symbol = myStr[currentIndex + 1]
                 if next_symbol == comment[0]:  # if the next symbol / too?
-                    return 'we got a comment'
+                    break
                 if next_symbol == comment[1]:  # if the next symbol / too?
-                    stack.append(i)
-                    stack.append(next_symbol)
                     openedDocString = True
-                    print('we got a doc open at index : ' + str(myStr.index(i) + 1))
+        #                  print('we got a doc open at index : ' + str(currentIndex + 1))
+
         # only look for * to close the docstring
-        if i == comment[1]:
-            pos = myStr.index(i)  # get the current index to check the next /
-            next_symbol = myStr[pos + 1]
-            print(' we in for ' + i + str(next_symbol))
 
+        elif i == comment[1] and not skipNext:
+            next_symbol = myStr[currentIndex + 1]
             if next_symbol == comment[0]:  # if the next symbol / too
-                stack.pop(i)
-                stack.pop(next_symbol)
+                #              print('Doc closed : ' + str(myStr.index(i) + 1))
                 openedDocString = False
-                print('Doc closed : ' + str(myStr.index(i) + 1))
+        currentIndex += 1
+    if len(stack) == 0:
+        return "Balanced"
+    else:
+        return "Unbalanced"
 
 
-string = "{[]/*{*/()}}"
-print(string, "-", check_c(string))
+cFile_1 = "test1_balance_check.c"
+
+
+def programFile(myFile):
+    my_list = []
+    with open(myFile, 'r') as lines:
+        for line in lines:
+            my_list.append(lines.readline().strip('\n'))
+    return my_list
+
+
+def check(File):
+    stringsList = programFile(cFile_1)
+    print(len(stringsList))
+ #   for e in range(0, len(stringsList)):
+  #      print(e)
+   #     print('-------------')
+    #    print(check_line(e))
+
+
+check(cFile_1)
+
+"""
+string = "{[]{()}}"
+print(string, "-", check_line(string))
 
 string = "[{}{})(]"
-print(string, "-", check_c(string))
+print(string, "-", check_line(string))
 
 string = "((()"
-print(string, "-", check_c(string))
-
-# print(isinstance(my_variable, int))
+print(string, "-", check_line(string))
+"""

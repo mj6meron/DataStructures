@@ -2,8 +2,6 @@
 Josephus problem
 """
 
-import collections
-
 
 # --------------------------------------- LinkedList without Iterator -------------------------------------------
 
@@ -65,7 +63,7 @@ class LinkedList:
     def get(self, node_index):
         """Get a node from LinkedList at index"""
         if node_index == 0:  # if index 0 return first element
-            return self.head
+            return self.head.data
         if node_index >= self.size() or node_index < 0:  # out of range
             return 'Index out of range'
         position = 0
@@ -77,11 +75,11 @@ class LinkedList:
 
     def remove(self, node_index):
         """Remove node from LinkedList using index"""
-        self.length -= 1
         if node_index == 0:  # if index 0 return first element
             old_head = self.head
             self.head = old_head.next_node
-            return "Removed : %s" % old_head
+            self.length -= 1
+            return "%s" % old_head.data
         if node_index >= self.size() or node_index < 0:  # out of range
             return 'Index out of range'
         position = 0
@@ -92,60 +90,48 @@ class LinkedList:
         tobe_removed = previous_node.next_node  # get the to be removed node
         the_next_node = tobe_removed.next_node  # get the its next node
         previous_node.next_node = the_next_node  # point next node, technically removing the middle element
-        return "Removed : %s" % tobe_removed
+        self.length -= 1
+        return "%s" % tobe_removed.data
 
 
 # --------------------------------------------------------------------------------------------------------------
 
 
-n = 5
-m = 2
-
-numbers = []
-myLinkedList = LinkedList()
-linked_lst = collections.deque()
-for e in range(1, n + 1):
-    myLinkedList.add(e)
-    numbers.append(e)
-    linked_lst.append(e)
-
-
 def josephus(ls, skip, data_structure):
-
+    idx = skip
     if data_structure == "arrayList":
-        skip -= 1  # pop automatically skips the dead guy
-        idx = skip
         while len(ls) > 1:
-            print(ls.pop(idx))  # kill prisoner at idx
+            ls.pop(idx)
             idx = (idx + skip) % len(ls)
-        print('survivor: ', ls[0])
+        return ls[0]
+    if data_structure == "myLinkedList":
+        while ls.size() > 1:
+            ls.remove(idx)
+            idx = (idx + skip) % ls.size()
+        return ls.get(0)
+    if data_structure == "deQueue":
+        while len(ls) > 1:
+            del ls[idx]
+            idx = (idx + skip) % len(ls)
+        return ls[0]
+
+def josephus_show(ls, skip, data_structure):
+    idx = skip
     if data_structure == "arrayList":
-        pass
+        # pop automatically skips the dead guy
+        while len(ls) > 1:
+            print('Eliminated: %s, at index: %s' % (ls.pop(idx), idx))  # kill prisoner at idx
+            idx = (idx + skip) % len(ls)
+        print('Remaining survivor ---> ', ls[0])
 
-
-josephus(numbers, m, 'hey')
-
-
-def josephus(people, skips):
-    if people == 1:
-        return 1
-    else:
-
-        # The position returned by
-        # josephus(n - 1, k) is adjusted
-        # because the recursive call
-        # josephus(n - 1, k) considers
-        # the original position
-        # k%n + 1 as position 1
-        return (josephus(people - 1, skips) + skips - 1) % people + 1
-
-
-# print(numbers)
-
-n = 5
-k = 2
-
-print("The chosen place is ", josephus(n, k))
-
-# print(myLinkedList.get(7))
-# # print(linked_lst)
+    if data_structure == "myLinkedList":
+        while ls.size() > 1:
+            print('Eliminated: %s, at index: %s' % (ls.remove(idx), idx))  # kill prisoner at idx
+            idx = (idx + skip) % ls.size()
+        print('Remaining survivor ---> ', ls.get(0))
+    if data_structure == "deQueue":
+        while len(ls) > 1:
+            print('Eliminated: %s, at index: %s' % (ls[idx], idx))  # kill prisoner at idx
+            del ls[idx]
+            idx = (idx + skip) % len(ls)
+        print('Remaining survivor ---> ', ls[0])
