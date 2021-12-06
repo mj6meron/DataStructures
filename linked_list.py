@@ -25,6 +25,7 @@ class Node:
 class LinkedList:
     def __init__(self):
         self.head = None
+        self.tail = None
         self.length = 0
 
     def is_empty(self):
@@ -38,9 +39,15 @@ class LinkedList:
     def add(self, name, address):
         """Add note in front of the header, simple implementation"""
         self.length += 1
-        new_node = Node(name, address)  # create the node to implement the node
-        new_node.next_node = self.head  # reference the next node to the current head
-        self.head = new_node  # Add at the first of the linked list
+        new_node = Node(name, address)
+        if self.length != 1:
+            self.tail.next_node = new_node
+            new_node.next_node = None
+            self.tail = new_node
+        else:
+            new_node.next_node = self.head  # reference the next node to the current head
+            self.head = new_node  # Add at the first of the linked list
+            self.tail = new_node
 
     def __repr__(self):
         """Do the representation fo the Linked List"""
@@ -55,6 +62,7 @@ class LinkedList:
                 elements.append('[%s: %s]' % (i.name, i.address))
             i = i.next_node
         return '➤'.join(elements)
+
 
     def get(self, node_index):
         """Get a node from LinkedList at index"""
@@ -114,3 +122,6 @@ print(l)
 print('The size is: %s' % l.size())
 print('---------------')
 print(format(l))
+
+
+print('****************************')

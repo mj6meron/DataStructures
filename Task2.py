@@ -90,34 +90,25 @@ class stack_twoQueues:
 
     def __init__(self):
 
-        # Two inbuilt queues
         self.q1 = Queue()
         self.q2 = Queue()
 
-        # To maintain current number
-        # of elements
         self.curr_size = 0
 
     def push(self, x):
         self.curr_size += 1
 
-        # Push x first in empty q2
         self.q2.put(x)
-
-        # Push all the remaining
-        # elements in q1 to q2.
         while not self.q1.empty():
             self.q2.put(self.q1.queue[0])
             self.q1.get()
 
-        # swap the names of two queues
         self.q = self.q1
         self.q1 = self.q2
         self.q2 = self.q
 
     def pull(self):
 
-        # if no elements are there in q1
         if self.q1.empty():
             return
         self.q1.get()
@@ -136,6 +127,7 @@ class stack_twoQueues:
         for i in self.q1.queue:
             elements.append(i)
         return str(elements)
+
 
 # ------------------------------------------------------------------------------------
 

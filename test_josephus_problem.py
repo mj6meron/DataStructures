@@ -8,10 +8,9 @@ m = 1
 from Josephus_problem import josephus, LinkedList, Node
 import collections
 
-
+linked_lst = collections.deque()
 numbers = []
 myLinkedList = LinkedList()
-linked_lst = collections.deque()
 
 for e in range(1, n + 1):
     myLinkedList.add(e)

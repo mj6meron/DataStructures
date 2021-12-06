@@ -115,6 +115,7 @@ def josephus(ls, skip, data_structure):
             idx = (idx + skip) % len(ls)
         return ls[0]
 
+
 def josephus_show(ls, skip, data_structure):
     idx = skip
     if data_structure == "arrayList":
