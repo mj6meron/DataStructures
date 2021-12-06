@@ -52,22 +52,17 @@ def check_line(myStr):
                     return "unBalanced"
             elif i == comment[0]:
                 # get the current index to check the next /
-                next_symbol = myStr[currentIndex + 1]
-                if next_symbol == comment[0]:  # if the next symbol / too?
-                    break
-                if next_symbol == comment[1]:  # if the next symbol / too?
+                if currentIndex + 1 < len(myStr) and myStr[currentIndex + 1] == comment[0]:  # if the next symbol / too?
+                    return "Balanced"
+                if currentIndex + 1 < len(myStr) and myStr[currentIndex + 1] == comment[1]:  # if the next symbol / too?
                     openedDocString = True
-        #                  print('we got a doc open at index : ' + str(currentIndex + 1))
-
         # only look for * to close the docstring
-
         elif i == comment[1] and not skipNext:
             next_symbol = myStr[currentIndex + 1]
-            if next_symbol == comment[0]:  # if the next symbol / too
-                #              print('Doc closed : ' + str(myStr.index(i) + 1))
+            if currentIndex + 1 < len(myStr) and myStr[currentIndex + 1] == comment[0]:
                 openedDocString = False
         currentIndex += 1
-    if len(stack) == 0:
+    if len(stack) == 0 and openedDocString == False:
         return "Balanced"
     else:
         return "Unbalanced"
@@ -78,21 +73,20 @@ cFile_1 = "test1_balance_check.c"
 
 def programFile(myFile):
     my_list = []
-    with open(myFile, 'r') as lines:
-        for line in lines:
-            my_list.append(lines.readline().strip('\n'))
+    lines = open(myFile, 'r')
+    for x in lines:
+        my_list.append(x.rstrip('\n'))
     return my_list
 
 
 def check(File):
-    stringsList = programFile(cFile_1)
-    print(len(stringsList))
- #   for e in range(0, len(stringsList)):
-  #      print(e)
-   #     print('-------------')
-    #    print(check_line(e))
+    stringsList = programFile(File)
+    for string in stringsList:
+        print(f'{string:<60}{check_line(string):<15}')
+        print('---------------------------------------------------------')
 
-
+print('*************************************************************************************')
+# check_line(string)  # The function
 check(cFile_1)
 
 """
