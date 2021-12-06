@@ -68,7 +68,9 @@ def check_line(myStr):
         return "Unbalanced"
 
 
-cFile_1 = "test1_balance_check.c"
+cFile = "test1_balance_check.c"
+
+cPlusPlusFile = "test2_balance_check.c"
 
 
 def programFile(myFile):
@@ -85,9 +87,13 @@ def check(File):
         print(f'{string:<60}{check_line(string):<15}')
         print('---------------------------------------------------------')
 
+
 print('*************************************************************************************')
 # check_line(string)  # The function
-check(cFile_1)
+check(cFile)
+print('*************************************************************************************')
+# check_line(string)  # The function
+check(cPlusPlusFile)
 
 """
 string = "{[]{()}}"
