@@ -7,4 +7,4 @@ Valid:
 5. int a = 5; // init a to 5
 Not valid:
 1. for(int i=0;i<10;i++] {a+= b;}
-2. {abc)
+2. {abc)}
