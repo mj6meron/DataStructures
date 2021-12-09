@@ -91,7 +91,15 @@ class LinkedList:
         the_next_node = tobe_removed.next_node  # get the its next node
         previous_node.next_node = the_next_node  # point next node, technically removing the middle element
         self.length -= 1
-        return "%s" % tobe_removed.data
+        del tobe_removed
+        return 'Removed'
+
+    def __iter__(self):
+        """ Iterate over the linked list."""
+        current = self.head
+        while current is not None:
+            yield current.data
+            current = current.next_node
 
 
 # --------------------------------------------------------------------------------------------------------------
@@ -101,38 +109,41 @@ def josephus(ls, skip, data_structure):
     idx = skip
     if data_structure == "arrayList":
         while len(ls) > 1:
-            ls.pop(idx)
+            ls.pop(idx)  # constant
+            idx = (idx + skip) % len(ls)
+        return ls[0]
+    if data_structure == "arrayListIterator":
+        while len(ls) > 1:
+            Iterator = iter(ls)
+            for person in Iterator:  # linear
+                if person == ls[idx]:
+                    ls.remove(person)
+                    break
             idx = (idx + skip) % len(ls)
         return ls[0]
     if data_structure == "myLinkedList":
         while ls.size() > 1:
-            ls.remove(idx)
+            ls.remove(idx)  # linear
             idx = (idx + skip) % ls.size()
         return ls.get(0)
-    if data_structure == "deQueue":
-        while len(ls) > 1:
-            del ls[idx]
-            idx = (idx + skip) % len(ls)
-        return ls[0]
-
-
-def josephus_show(ls, skip, data_structure):
-    idx = skip
-    if data_structure == "arrayList":
-        # pop automatically skips the dead guy
-        while len(ls) > 1:
-            print('Eliminated: %s, at index: %s' % (ls.pop(idx), idx))  # kill prisoner at idx
-            idx = (idx + skip) % len(ls)
-        print('Remaining survivor ---> ', ls[0])
-
-    if data_structure == "myLinkedList":
+    if data_structure == "myLinkedListIterator":
         while ls.size() > 1:
-            print('Eliminated: %s, at index: %s' % (ls.remove(idx), idx))  # kill prisoner at idx
+            Iterator = iter(ls)
+            for person in Iterator:  # linear
+                if person == ls.get(idx):
+                    ls.remove(person)  # linear
+                    break
             idx = (idx + skip) % ls.size()
-        print('Remaining survivor ---> ', ls.get(0))
-    if data_structure == "deQueue":
-        while len(ls) > 1:
-            print('Eliminated: %s, at index: %s' % (ls[idx], idx))  # kill prisoner at idx
-            del ls[idx]
-            idx = (idx + skip) % len(ls)
-        print('Remaining survivor ---> ', ls[0])
+        return ls.get(0)
+
+# n = 15
+# m = 1
+# my_list = []
+# my_linkedlist = LinkedList()
+#
+# for i in range(1, n + 1):
+#     my_list.append(i)
+#     my_linkedlist.add(i)
+#
+#
+# josephus(my_list, 1, 'arrayListIterator')

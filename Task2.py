@@ -11,32 +11,26 @@ from queue import Queue
 
 class Queue_twoStack:
     def __init__(self):
-        self.s1 = []  # Create stack 1
-        self.s2 = []  # Create stack 2
+        self.s1 = []
+        self.s2 = []
 
     def enQueue(self, x):
 
-        # Move all elements from s1 to s2
         while len(self.s1) != 0:
             self.s2.append(self.s1[-1])
             self.s1.pop()
 
-        # Push item into self.s1f
         self.s1.append(x)
 
-        # Push everything back to s1
         while len(self.s2) != 0:
             self.s1.append(self.s2[-1])
             self.s2.pop()
 
-    # Dequeue an item from the queue
     def deQueue(self):
 
-        # if first stack is empty
         if len(self.s1) == 0:
             print("Queue is Empty")
 
-        # Return top of self.s1
         x = self.s1[-1]
         self.s1.pop()
         return x
@@ -46,35 +40,24 @@ class Queue_oneStack:
     def __init__(self):
         self.s = []
 
-    # Enqueue an item to the queue
     def enQueue(self, data):
         self.s.append(data)
 
-    # Dequeue an item from the queue
     def deQueue(self):
-        # Return if queue is empty
         if len(self.s) <= 0:
             print('Queue is empty')
             return
 
-        # pop an item from the stack
         x = self.s[len(self.s) - 1]
         self.s.pop()
 
-        # if stack become empty
-        # return the popped item
         if len(self.s) <= 0:
             return x
 
-        # recursive call
         item = self.deQueue()
 
-        # push popped item back to
-        # the stack
         self.s.append(x)
 
-        # return the result of
-        # deQueue() call
         return item
 
 
@@ -140,24 +123,15 @@ class stack_oneQueue:
         self.q = Queue()
         self.curr_size = 0
 
-    # append operation
     def push(self, x):
-        # get previous size of queue
         size = self.curr_size
         self.curr_size += 1
-        # Add current element
         self.q.put(x)
 
-        # Pop (or Dequeue) all previous
-        # elements and put them after current
-        # element
         for i in range(size):
-            # this will add front element into
-            # rear of queue
             x = self.q.get()
             self.q.put(x)
 
-    # Removes the top element
     def pull(self):
         if self.curr_size == 0:
             print("No elements")
@@ -187,7 +161,6 @@ s.push(10)
 s.push(20)
 s.push(90)
 s.pull()
-print('here')
 print(s)
 
 # a normal queue

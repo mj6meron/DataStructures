@@ -1,6 +1,6 @@
 """
 Custom singly LinkedList - AddressBookPage
-Each node containing - name, address and a point to the next node if any
+Each node containing - name, address and a point to the next node if anyN
 
 The Tail of the LinkedList points to none
 And the Head is the fist element
