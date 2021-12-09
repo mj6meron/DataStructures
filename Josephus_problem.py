@@ -129,9 +129,9 @@ def josephus(ls, skip, data_structure):
     if data_structure == "myLinkedListIterator":
         while ls.size() > 1:
             Iterator = iter(ls)
-            for person in Iterator:  # linear
+            for person in Iterator:  # linearprint(person)
                 if person == ls.get(idx):
-                    ls.remove(person)  # linear
+                    ls.remove(idx)  # linear
                     break
             idx = (idx + skip) % ls.size()
         return ls.get(0)
