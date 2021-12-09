@@ -2,8 +2,8 @@ import timeit
 
 cycles = 10
 setUp = """
-n = 25
-m =0
+n = 1000
+m = 20
 
 from Josephus_problem import josephus, LinkedList, Node
 
@@ -50,7 +50,6 @@ print('\n')
 # ----------------------------------------------------------------------------------------------------------------------
 
 
-
 print('-----------------------------------------------')
 usingMyLinkedListIterator = """josephus(myLinkedList, m, 'myLinkedListIterator')"""
 runningTime_myLinkedListIterator = timeit.repeat(stmt=usingMyLinkedListIterator, repeat=cycles,
@@ -62,7 +61,6 @@ print("LinkedList with Iterator:\nAverage running time ( %s cycles )->  %s" % (c
 
 print('\n')
 print('-----------------------------------------------')
-
 
 print(averageList)
 print(averageListIterator)

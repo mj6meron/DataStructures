@@ -113,16 +113,12 @@ def josephus(ls, skip, data_structure):
             idx = (idx + skip) % len(ls)
         return ls[0]
     if data_structure == "arrayListIterator":
-        Iterator = itertools.cycle(ls)
-        for person in Iterator:  # linear print(person)
-            if len(ls) == 1: break
-            print(person)
-            if person == ls[idx]:
-                print('Inside: ' + str(person))
-                ls.pop(idx)  # linear
-                idx = (idx + skip) % len(ls)
-                print(ls , len(ls), idx)
-                print('--------------')
+        while len(ls) > 1:
+            Iterator = iter(ls)
+            for person in Iterator:  # linear print(person)
+                if person == ls[idx]:
+                    ls.pop(idx)  # linear
+                    idx = (idx + skip) % len(ls)
         return ls[0]
     if data_structure == "myLinkedList":
         while ls.size() > 1:
@@ -130,23 +126,24 @@ def josephus(ls, skip, data_structure):
             idx = (idx + skip) % ls.size()
         return ls.get(0)
     if data_structure == "myLinkedListIterator":
-        Iterator = itertools.cycle(ls)
-        for person in Iterator:  # linear print(person)
-            if ls.size() == 1: break
-            if person == ls.get(idx):
-                print('Inside: ' + str(person))
-                ls.remove(idx)  # linear
-                idx = (idx + skip) % ls.size()
+        while ls.size() > 1:
+            Iterator = iter(ls)
+            for person in Iterator:  # linear print(person)
+                if ls.size() == 1: break
+                if person == ls.get(idx):
+                    ls.remove(idx)  # linear
+                    idx = (idx + skip) % ls.size()
         return ls.get(0)
 
-
-n = 5
-m = 1
-my_list = []
-my_linkedlist = LinkedList()
-
-for i in range(1, n + 1):
-    my_list.append(i)
-    my_linkedlist.add(i)
-
-print(josephus(my_list, m, 'arrayListIterator'))
+#
+#
+# n = 5
+# m = 0
+# my_list = []
+# my_linkedlist = LinkedList()
+#
+# for i in range(1, n + 1):
+#     my_list.append(i)
+#     my_linkedlist.add(i)
+#
+# print(josephus(my_linkedlist, m, 'myLinkedListIterator'))
