@@ -91,6 +91,7 @@ def check(File):
 print('*************************************************************************************')
 # check_line(string)  # The function
 check(cFile)
+print('\n\n\n')
 print('*************************************************************************************')
 # check_line(string)  # The function
 check(cPlusPlusFile)

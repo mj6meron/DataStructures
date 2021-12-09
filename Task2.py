@@ -2,9 +2,32 @@
 Routine to implement a queue and a stack.
 
 a. Implementation of a queue using two stacks.
+        enQueue(q, x):
+                -While stack1 is not empty, push everything from stack1 to stack2.
+                -Push x to stack1 (assuming size of stacks is unlimited).
+                -Push everything back to stack1.
+        Here time complexity will be O(n)
+        deQueue(q):
+                - If stack1 is empty then error
+                - Pop an item from stack1 and return it
+                - Here time complexity will be O(1)
 b. Implementation of a queue using only one stacks.
+    recursively pop from stack
+        when there is only one item in stack1 deQueue element
+        push back everything to the stack
 c. Implementation of a stack using two queues.
+        Enqueue x to q2
+        One by one dequeue everything from q1 and enqueue to q2.
+        Swap the names of q1 and q2
+
+        on pop operation
+        Dequeue an item from q1 and return it.
 d. Implementation of a stack using a single queue.
+        push
+            Enqueue x to q
+            2) One by one Dequeue s items from queue and enqueue them.
+        pop
+              1) Dequeue an item from q
 """
 from queue import Queue
 
