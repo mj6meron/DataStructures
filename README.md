@@ -1,2 +1,1 @@
-# DataStructures
-A Singly LinkedList python, 
+Custom data models ( new LinkedList) - python 
